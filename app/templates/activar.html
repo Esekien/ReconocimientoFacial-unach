@@ -1,0 +1,67 @@
+{% include 'header.html' %}
+
+<link rel="stylesheet" href="{{ url_for('static',filename='/css/botones.css') }}">
+
+
+<h2 class="text-center">Verifique su identidad</h2>
+<br><br><br>
+
+{% for message in get_flashed_messages() %}
+<div class="alert alert-warning">{{ message }}</div>
+{% endfor %}
+  
+
+<div class="container">
+  <center> 
+    <div class="card shadow-lg p-3 mb-3 bg-white rounded">
+      <div class="card-body">
+        <img id="bg" src="{{ url_for('face_recognition.video_feed') }}"> 
+      </div>
+    </div>
+    
+  
+  </center>
+</div>
+
+<br><br><br><br>
+
+<br><br>
+<div class="row align-items-end">
+    <div class="col"></div>
+    <div class="col"></div>
+
+    
+    
+    <a href="{{ url_for('face_recognition.validarFace') }}">
+    <button type="button" class="btn text-white" style="background-color: #18386B"  data-toggle="modal" data-target="#exampleModalCenter">
+      Validar rostro
+    </button> 
+    </a>
+      <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalCenterTitle">Validando rostro</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <center>
+              <div class="spinner-border text-primary" role="status">
+                <p class="sr-only">Cargando...</p>
+              </div>
+            </center>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+  
+
+
+{% include 'footer.html' %}

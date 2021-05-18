@@ -1,0 +1,16 @@
+body .text-justify{
+    font-size: 20px;
+}
+body .card-1{
+    background-color: #18386B;
+    color:#D2A82C;
+}
+body .parrafo{
+    font-size: 20px;
+}
+body .card-1{
+  padding: 3px 10px;
+  border: PowderBlue 5px solid;
+  border-radius: 20px;
+
+}

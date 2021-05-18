@@ -1,0 +1,49 @@
+{% include 'header.html' %}
+
+<link rel="stylesheet" href="{{ url_for('static',filename='/css/stylebody.css') }}">
+<center>
+  <h1>Bienvenid@ a FREE.IA</h1>
+  <h2>"Facial Recognizion Exam"</h2>
+</center>
+<br>
+<br>
+<center>
+    <p class="text-justify">Querid@ Alumno deberá subir una imagen de su rostro con una buena iluminacióntámbien deberá llenar los datos que sean requeridos como su matricula o nombre.</p>
+    <br>
+    <p class="text-justify">Una vez finalizado este proceso sus datos serán guardados con éxito y estará listo para presentar su examen en FREE.IA cuando se requiera. </p>
+
+</center>
+
+  
+  <br>
+
+<br><br>
+
+<center>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm">
+
+        <div class="card" style="width: 15rem; height: 13rem;"><br>
+          <a href="{{ url_for('face_recognition.registrar') }}">
+            <center><img class="card-img-top" src="{{ url_for('static',filename='/imagenes/subir3.png') }}" alt=""
+                class="img-thumbnail" width="40" height="100"></center>
+          </a>
+          <div class="card-body">
+            <center>
+              <p class="parrafo">Subir Imagen</p>
+            </center>
+          </div>
+        </div>
+
+      </div>
+      
+
+      </div>
+    </div>
+
+</center>
+<br><br><br>
+
+
+{% include 'footer.html' %}

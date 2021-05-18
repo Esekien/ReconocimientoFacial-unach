@@ -1,0 +1,16 @@
+body .navbar{
+    background-color: #18386B;
+    color:white;
+}
+body .navbar-brand{
+
+    color:white;
+    font-size: large;
+}
+body .navbar .navbar-light{
+    background-color:#D2A82C ;
+}
+body .img-thumbnail{
+    background-color: #18386B;
+    border: 1px solid; color: #18386B;
+}

@@ -1,0 +1,64 @@
+{% include 'header.html' %}
+
+{% with messages= get_flashed_messages() %}
+
+    {% if messages %}
+        <div class="alert alert-danger" role="alert">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+
+    {% endif %}
+
+{% endwith %}
+
+<br><br>
+<form method="post" action="/aceptar" enctype="multipart/form-data">
+    
+    <div class="card">
+        <div class="card-header">
+            Registrar Nuevo Alumno
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Datos del Alumno</h5>
+            <p class="card-text">
+                <div  class="form-group">
+                    <label for="txtmatricula">Matricula</label>
+                    <input id="txtfecha" class="form-control" type="text" name="txtmatricula">
+                </div>
+
+                <div class="form-group">
+                    <label for="txtnombre">Nombre Completo</label>
+                    <input id="txtnombre" class="form-control" value="" type="text" name="txtnombre">
+                </div>
+
+                <form>
+                    <div class="custom-file">
+                      <input type="file" accept="image/png,image/jpeg,image/jpg" class="custom-file-input" id="customFile" name="customFile">
+                      <label class="custom-file-label" for="customFile">Choose file</label>
+                    </div>
+                  </form>
+                  
+                  <script>
+                  // Add the following code if you want the name of the file appear on select
+                  $(".custom-file-input").on("change", function() {
+                    var fileName = $(this).val().split("\\").pop();
+                    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+                  });
+                  </script>
+
+                
+                <br><br>
+                <div class="form-group">
+                    <input onclick="return confirm('¿Todos los datos son Correctos?')" type="submit" class="btn btn-success" value="Aceptar">
+                    <a  href="{{ url_for('face_recognition.inicio') }}" class="btn btn-primary">Regresar</a>
+                </div>
+            </p>
+            
+        </div>
+    </div>
+</form>
+
+<br><br>
+{% include 'footer.html' %}

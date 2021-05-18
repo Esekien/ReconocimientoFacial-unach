@@ -1,0 +1,27 @@
+{% include 'header.html' %}
+<link rel="stylesheet" href="{{ url_for('static',filename='/css/botones.css') }}">
+<link rel="stylesheet" href="{{ url_for('static',filename='/css/stylebody.css') }}">
+<h2 class="text-center">Indicaciones</h2>
+<br><br>
+<p class="text-justify">Asegurese de estar en un lugar con buena iluminación para que la cámara capture su rostro de lo contrario no podrá acceder al examen.</p>
+<p class="text-justify">El examen solo puede ser tomado por el Aspirante que aparece en el video que fue  entregado con anterioridad.</p>
+<br><br>
+<div class="container" style="background-color: white">
+    <a href="#""><center><img src="{{ url_for('static',filename='/imagenes/reconocimiento.png') }}"  width="290" height="320"></center></a>
+
+</div>
+
+
+<br><br>
+<div class="row align-items-end">
+    <div class="col"></div>
+    <div class="col"></div>
+    <div class="col"><a href="{{ url_for('face_recognition.activar') }}">
+        <button onclick="" type="button" class="boton"  style="background-color: #18386B" color="white"> 
+        Continuar con el <br> escaneo de rostro </button></a></div>
+  </div>
+
+
+
+
+{% include 'footer.html' %}

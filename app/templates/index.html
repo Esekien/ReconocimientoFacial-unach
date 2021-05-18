@@ -1,0 +1,53 @@
+{% include 'header.html' %}
+
+<link rel="stylesheet" href="{{ url_for('static',filename='/css/stylebody.css') }}">
+<h2 class="text-center">Bienvenid@</h2>
+<h3 class="text-center">Alumno</h3>
+
+<br>
+<p class="text-justify">En esta página encontrarás una guía que será útil para prepararte para el examen.</p>
+<p class="text-justify">El simulador será habilitado en las fechas de 30 de agosto al 30 de septiembre de 2021 para tu
+  preparación al examen. </p>
+<p class="text-justify">El examen de admisión estará disponible el 02 de octubre de 2021.</p>
+<p class="text-justify">Para presentar el examen deberás contar con una computadora con cámara web con el objetivo de
+  verificar tu <br> identidad, así como una conexión a internet estable.</p>
+<p class="text-justify">Si no cuentas con una WebCam, podrás usar tu celular como cámara, si quieres conocer más <a
+    href="#">click aquí</a>.</p>
+
+<br>
+<center>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm">
+
+        <div class="card card-1" style="width: 15rem; height: 13rem;"><br>
+          <a href="{{ url_for('face_recognition.inicio') }}">
+            <center><img class="card-img-top" src="{{ url_for('static',filename='/imagenes/subir3.png') }}" alt=""
+                class="img-thumbnail" width="40" height="100"></center>
+          </a>
+          <div class="card-body">
+            <center>
+              <p class="parrafo">Subir Imagen</p>
+            </center>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm">
+        <div class="card card-1" style="width: 15rem; height: 13rem;"><br>
+          <a href="{{ url_for('face_recognition.indicaciones') }}">
+            <center> <br><img class="card-img-top" src="{{ url_for('static',filename='/imagenes/exam.png') }}" alt=""
+                class="img-thumbnail" width="100" height="70"></center>
+          </a>
+          <div class="card-body">
+            <center>
+              <p class="parrafo">Alumnos</p>
+            </center>
+          </div>
+        </div>
+      </div>
+    </div>
+</center>
+<br><br><br>
+
+
+{% include 'footer.html' %}
