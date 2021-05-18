@@ -5,7 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Table, Column, Integer, ForeignKey, DateTime, Boolean
 from sqlalchemy.orm import relationship
 
-
+#MODELO DE LA BASE DE DATOS
 
 class Usuario(db.Model):
     __tablename__ = 'Usuario'

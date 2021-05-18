@@ -13,14 +13,14 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:@localhost/reconoc
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'your secret key'
 
-app.config['UPLOAD_FOLDER'] = './app/prueba'
+app.config['UPLOAD_FOLDER'] = './app/static/alumnos'
 
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 
-engine = create_engine('mysql+pymysql://root:@localhost/reconocimiento')
+engine = create_engine('mysql+pymysql://root:12345@localhost/reconocimiento1')
 Session = sessionmaker(bind=engine)
 session = Session()
 

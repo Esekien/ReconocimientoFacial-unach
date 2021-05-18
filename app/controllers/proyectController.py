@@ -31,13 +31,15 @@ session = Session()
 camera = cv2.VideoCapture(0)
 
 
+
+
 #SEGUIR CON LA LIBRERIA LOGIN
 
-
+#DEFINICIÓN DE TODAS LAS FUNCIONES
 face_recognition_Route = Blueprint('face_recognition',__name__)
 
 class Loging():
-
+    #DEFINICION DE LA RUTA RAIZ DE LOGIN
     @face_recognition_Route.route('/',methods=['GET','POST'])
     def login():
         if request.method == 'POST':
@@ -53,20 +55,27 @@ class Loging():
                 return render_template('login.html')
         return render_template('login.html')
 
-    
+    #DEFINICION DE LA RUTA DE HOME, PANTALLA PRINCIPAL
     @face_recognition_Route.route('/home')
     def index():
         if 'user' in sesion:
             print(sesion['user'])
             return render_template('index.html')
         return redirect('/')
-
+    #DEFINICION DEL TEMPLATE DE INDICACIONES
     @face_recognition_Route.route('/indicaciones')
     def indicaciones():
         if 'user' in sesion:
+            #LE INDICAMOS AL PROGRAMA QUE EN LA BD EL ATRIBUTO RECONOCIDO ES UN FALSE
+            id_de_sesion= sesion['user']
+            user = session.query(Examen).filter_by(idUsuario=id_de_sesion).first()
+            print(user)
+            user.Reconocido = False
+            session.commit()
             return render_template('indicaciones.html')
         return redirect('/')
-
+    
+    #DEFINICION DE LA RUTA DE DONDE SE SUBE LA FOTO DEL USUARIO 
     @face_recognition_Route.route('/inicio')
     def inicio():
         if 'user' in sesion:
@@ -80,19 +89,19 @@ class Loging():
             return render_template('activar.html')
         return redirect('/')
 
-
+    #VALIDACION DEL ROSTRO DEL USUARIO
     @face_recognition_Route.route('/validacion')
     def validarFace():
         time.sleep(5)
         user = session.query(Examen).filter_by(idUsuario=sesion['user']).first()
         if user.Reconocido:
-           return 'rostro validado , realice el examen'
+           return redirect('https://www.educa-t.unach.mx/login/index.php')
         else:
             flash('Rostro no reconocido vuelve a intentarlo...')
             return redirect('/activar')
 
 
-
+    #GUARDAR LA IMAGEN DEL USUARIO EN FORMATO ESPECIFICADO
     @face_recognition_Route.route('/aceptar', methods=['POST'])
     def aceptar():
         ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
@@ -109,8 +118,8 @@ class Loging():
         _archivo.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         
         # Retornamos una respuesta satisfactoria
-        return redirect('/')
-    
+        return redirect('/home')
+    #REDIRECCIONAMIENTO AL TEMPLATE DE GUARDAR FOTO
     @face_recognition_Route.route('/registrar')
     def registrar():
         if 'user' in sesion:
@@ -118,15 +127,18 @@ class Loging():
         return redirect('/')
 
 
-        
+    #aQUI OCURRE LA MAGIA DEL RECONOCIMIENTO FACIAL
     @face_recognition_Route.route('/video_feed')
     def video_feed():
         id_de_sesion= sesion['user']
         def gen_frames():  
-
+            
+            flag = 0
             matricula = session.query(Usuario.Matricula).filter_by(id=id_de_sesion).first()
-           
-            obama_image = face_recognition.load_image_file("./app/static/imagenes/"+matricula[0]+".jpg")
+            print(matricula)
+            #LE PASAMOS EL VALOR DE LA SESION DEL USUARIO PARA BUSCAR SU ROSTRO
+            obama_image = face_recognition.load_image_file("./app/static/alumnos/"+matricula[0]+".jpg")
+            print(obama_image)
             obama_face_encoding = face_recognition.face_encodings(obama_image)[0]
 
 
@@ -135,7 +147,8 @@ class Loging():
                 obama_face_encoding
             ]
             known_face_names = [
-                "carlos",
+                #AQUI PONEMOS EL NOMBRE DE LA MATRICULA EN LA PANTALLA DE RECONOCIMIENTO FACIAL
+                matricula[0],
             ]
 
             # Initialize some variables
@@ -158,7 +171,7 @@ class Loging():
                     face_encodings = face_recognition.face_encodings(rgb_small_frame, face_locations)
 
                     face_names = []
-                    
+                    #FOR QUE BUSCA EL ROSTRO ENTRE LAS IMAGENES DADAS
                     for face_encoding in face_encodings:
                         # See if the face is a match for the known face(s)
                         matches = face_recognition.compare_faces(known_face_encodings, face_encoding)
@@ -178,8 +191,8 @@ class Loging():
                         face_names.append(name)
                         
                         for item in face_names:
-                        
-                            if item == 'carlos' and flag == 0:
+                            #CONVERTIMOS EN TRUE EL ATRIBUTO RECONOCIMIENTO, Y SE VALIDA EL USUARIO
+                            if item == matricula[0] and flag == 0:
                                 user = session.query(Examen).filter_by(idUsuario=id_de_sesion).first()
                                 user.Reconocido = True
                                 session.commit()
@@ -193,7 +206,7 @@ class Loging():
                     right *= 4
                     bottom *= 4
                     left *= 4
-
+                    # SE DEFINE EL TAMAÑO DEL FRAME DE LA CAMARA
                     # Draw a box around the face
                     cv2.rectangle(frame, (left, top), (right, bottom), (0, 0, 255), 2)
 
